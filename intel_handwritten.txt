@@ -1,0 +1,138 @@
+# DRM_FORMAT_MOD_LINEAR, which the GBM vectors do not contain. The calls follow iris:
+# - Size: the end of the layout. On i915 rounded up as iris_bo_alloc does (iris_bufmgr.c): to the
+#   smallest cache bucket up to 64 MiB, otherwise to a page, then to 2 MiB from 1 MiB on.
+# - Placement: system memory on integrated devices; on DG2 device memory with system memory as a
+#   fallback.
+# - PAT: index 1 on Meteor Lake.
+# - Tiling: NONE.
+# On xe: system memory, write-combined, the no-compression hint, and the size rounded up to 2 MiB
+# from 1 MiB on.
+# skl_gt2, LINEAR
+device driver=i915 fake=intel:skl_gt2:kernel=7.2:xe=0:small_bar=0 node=render
+case "XR24" 0x0 256x256 scanout=0
+layout 0 1024
+i915_gem_create_ext size=262144 flags=0x0 regions=0:0
+i915_gem_set_domain read_domains=0x1 write_domain=0x0
+i915_gem_set_tiling tiling_mode=0 stride=1024
+prime_handle_to_fd flags=0x80002
+case "XR24" 0x0 256x256 scanout=1
+layout 0 1024
+i915_gem_create_ext size=262144 flags=0x0 regions=0:0
+i915_gem_set_domain read_domains=0x1 write_domain=0x0
+i915_gem_set_tiling tiling_mode=0 stride=1024
+prime_handle_to_fd flags=0x80002
+case "XR24" 0x0 1920x1080 scanout=0
+layout 0 7680
+i915_gem_create_ext size=8388608 flags=0x0 regions=0:0
+i915_gem_set_domain read_domains=0x1 write_domain=0x0
+i915_gem_set_tiling tiling_mode=0 stride=7680
+prime_handle_to_fd flags=0x80002
+case "XR24" 0x0 1920x1080 scanout=1
+layout 0 7680
+i915_gem_create_ext size=8388608 flags=0x0 regions=0:0
+i915_gem_set_domain read_domains=0x1 write_domain=0x0
+i915_gem_set_tiling tiling_mode=0 stride=7680
+prime_handle_to_fd flags=0x80002
+# tgl_gt2, LINEAR
+device driver=i915 fake=intel:tgl_gt2:kernel=7.2:xe=0:small_bar=0 node=render
+case "XR24" 0x0 256x256 scanout=0
+layout 0 1024
+i915_gem_create_ext size=262144 flags=0x0 regions=0:0
+i915_gem_set_domain read_domains=0x1 write_domain=0x0
+i915_gem_set_tiling tiling_mode=0 stride=1024
+prime_handle_to_fd flags=0x80002
+case "XR24" 0x0 256x256 scanout=1
+layout 0 1024
+i915_gem_create_ext size=262144 flags=0x0 regions=0:0
+i915_gem_set_domain read_domains=0x1 write_domain=0x0
+i915_gem_set_tiling tiling_mode=0 stride=1024
+prime_handle_to_fd flags=0x80002
+case "XR24" 0x0 1920x1080 scanout=0
+layout 0 7680
+i915_gem_create_ext size=8388608 flags=0x0 regions=0:0
+i915_gem_set_domain read_domains=0x1 write_domain=0x0
+i915_gem_set_tiling tiling_mode=0 stride=7680
+prime_handle_to_fd flags=0x80002
+case "XR24" 0x0 1920x1080 scanout=1
+layout 0 7680
+i915_gem_create_ext size=8388608 flags=0x0 regions=0:0
+i915_gem_set_domain read_domains=0x1 write_domain=0x0
+i915_gem_set_tiling tiling_mode=0 stride=7680
+prime_handle_to_fd flags=0x80002
+# dg2_g10, LINEAR
+device driver=i915 fake=intel:dg2_g10:kernel=7.2:xe=0:small_bar=0 node=render
+case "XR24" 0x0 256x256 scanout=0
+layout 0 1024
+i915_gem_create_ext size=262144 flags=0x0 regions=1:0,0:0
+prime_handle_to_fd flags=0x80002
+case "XR24" 0x0 256x256 scanout=1
+layout 0 1024
+i915_gem_create_ext size=262144 flags=0x0 regions=1:0,0:0
+prime_handle_to_fd flags=0x80002
+case "XR24" 0x0 1920x1080 scanout=0
+layout 0 7680
+i915_gem_create_ext size=8388608 flags=0x0 regions=1:0,0:0
+prime_handle_to_fd flags=0x80002
+case "XR24" 0x0 1920x1080 scanout=1
+layout 0 7680
+i915_gem_create_ext size=8388608 flags=0x0 regions=1:0,0:0
+prime_handle_to_fd flags=0x80002
+# mtl_u, LINEAR
+device driver=i915 fake=intel:mtl_u:kernel=7.2:xe=0:small_bar=0 node=render
+case "XR24" 0x0 256x256 scanout=0
+layout 0 1024
+i915_gem_create_ext size=262144 flags=0x0 regions=0:0 pat_index=1
+i915_gem_set_domain read_domains=0x1 write_domain=0x0
+prime_handle_to_fd flags=0x80002
+case "XR24" 0x0 256x256 scanout=1
+layout 0 1024
+i915_gem_create_ext size=262144 flags=0x0 regions=0:0 pat_index=1
+i915_gem_set_domain read_domains=0x1 write_domain=0x0
+prime_handle_to_fd flags=0x80002
+case "XR24" 0x0 1920x1080 scanout=0
+layout 0 7680
+i915_gem_create_ext size=8388608 flags=0x0 regions=0:0 pat_index=1
+i915_gem_set_domain read_domains=0x1 write_domain=0x0
+prime_handle_to_fd flags=0x80002
+case "XR24" 0x0 1920x1080 scanout=1
+layout 0 7680
+i915_gem_create_ext size=8388608 flags=0x0 regions=0:0 pat_index=1
+i915_gem_set_domain read_domains=0x1 write_domain=0x0
+prime_handle_to_fd flags=0x80002
+# xe integrated, LINEAR
+device driver=xe fake=intel:lnl:kernel=7.2:xe=1:small_bar=0 node=render
+case "XR24" 0x0 256x256 scanout=0
+layout 0 1024
+xe_gem_create size=262144 placement=0x1 flags=0x8 vm_id=0 cpu_caching=2
+prime_handle_to_fd flags=0x80002
+case "XR24" 0x0 256x256 scanout=1
+layout 0 1024
+xe_gem_create size=262144 placement=0x1 flags=0xa vm_id=0 cpu_caching=2
+prime_handle_to_fd flags=0x80002
+case "XR24" 0x0 1920x1080 scanout=0
+layout 0 7680
+xe_gem_create size=8388608 placement=0x1 flags=0x8 vm_id=0 cpu_caching=2
+prime_handle_to_fd flags=0x80002
+case "XR24" 0x0 1920x1080 scanout=1
+layout 0 7680
+xe_gem_create size=8388608 placement=0x1 flags=0xa vm_id=0 cpu_caching=2
+prime_handle_to_fd flags=0x80002
+# xe integrated, LINEAR, kernel 6.19: the kernel does not report DRM_XE_QUERY_CONFIG_FLAG_HAS_NO_COMPRESSION_HINT
+# (added in 7.0), so the calls are the ones above without DRM_XE_GEM_CREATE_FLAG_NO_COMPRESSION (0x8).
+device driver=xe fake=intel:lnl:kernel=6.19:xe=1:small_bar=0 node=render
+case "XR24" 0x0 256x256 scanout=0
+layout 0 1024
+xe_gem_create size=262144 placement=0x1 flags=0x0 vm_id=0 cpu_caching=2
+prime_handle_to_fd flags=0x80002
+case "XR24" 0x0 256x256 scanout=1
+layout 0 1024
+xe_gem_create size=262144 placement=0x1 flags=0x2 vm_id=0 cpu_caching=2
+prime_handle_to_fd flags=0x80002
+case "XR24" 0x0 1920x1080 scanout=0
+layout 0 7680
+xe_gem_create size=8388608 placement=0x1 flags=0x0 vm_id=0 cpu_caching=2
+prime_handle_to_fd flags=0x80002
+case "XR24" 0x0 1920x1080 scanout=1
+layout 0 7680
+xe_gem_create size=8388608 placement=0x1 flags=0x2 vm_id=0 cpu_caching=2
+prime_handle_to_fd flags=0x80002

@@ -1,0 +1,122 @@
+# amdgpu buffers with implicit_sync(false). The expected calls are GBM's calls for the same
+# buffer with AMDGPU_GEM_CREATE_EXPLICIT_SYNC (0x80) added to the GEM_CREATE flags.
+# navi10, LINEAR
+device driver=amdgpu fake=amdgpu:navi10:kernel=7.2:pte_fragment_size=2097152 node=render
+case "AR24" 0x0 256x256 scanout=0 implicit_sync=0
+layout 0 1024
+amdgpu_gem_create size=262144 alignment=262144 domains=0x4 flags=0x84
+amdgpu_gem_metadata flags=0x0 tiling_info=0x8000300000000000
+prime_handle_to_fd flags=0x80002
+case "AR24" 0x0 256x256 scanout=1 implicit_sync=0
+layout 0 1024
+amdgpu_gem_create size=262144 alignment=262144 domains=0x4 flags=0x84
+amdgpu_gem_metadata flags=0x0 tiling_info=0x8000300000000000
+prime_handle_to_fd flags=0x80002
+case "AR24" 0x0 1920x1080 scanout=0 implicit_sync=0
+layout 0 7680
+amdgpu_gem_create size=8294400 alignment=2097152 domains=0x4 flags=0x84
+amdgpu_gem_metadata flags=0x0 tiling_info=0x8000300000000000
+prime_handle_to_fd flags=0x80002
+case "AR24" 0x0 1920x1080 scanout=1 implicit_sync=0
+layout 0 7680
+amdgpu_gem_create size=8294400 alignment=2097152 domains=0x4 flags=0x84
+amdgpu_gem_metadata flags=0x0 tiling_info=0x8000300000000000
+prime_handle_to_fd flags=0x80002
+# navi21, dGPU
+device driver=amdgpu fake=amdgpu:navi21:kernel=7.2:pte_fragment_size=2097152 node=render
+case "AR24" 0x200000000000901 256x256 scanout=0 implicit_sync=0
+layout 0 1024
+amdgpu_gem_create size=262144 alignment=262144 domains=0x4 flags=0x86
+amdgpu_gem_metadata flags=0x0 tiling_info=0x8000300000000009
+prime_handle_to_fd flags=0x80002
+case "AR24" 0x200000000000901 256x256 scanout=1 implicit_sync=0
+layout 0 1024
+amdgpu_gem_create size=262144 alignment=262144 domains=0x4 flags=0x86
+amdgpu_gem_metadata flags=0x0 tiling_info=0x8000300000000009
+prime_handle_to_fd flags=0x80002
+case "AR24" 0x200000000000901 1920x1080 scanout=0 implicit_sync=0
+layout 0 7680
+amdgpu_gem_create size=8847360 alignment=2097152 domains=0x4 flags=0x86
+amdgpu_gem_metadata flags=0x0 tiling_info=0x8000300000000009
+prime_handle_to_fd flags=0x80002
+case "AR24" 0x200000000000901 1920x1080 scanout=1 implicit_sync=0
+layout 0 7680
+amdgpu_gem_create size=8847360 alignment=2097152 domains=0x4 flags=0x86
+amdgpu_gem_metadata flags=0x0 tiling_info=0x8000300000000009
+prime_handle_to_fd flags=0x80002
+# raphael_mendocino, APU
+device driver=amdgpu fake=amdgpu:raphael_mendocino:kernel=7.2:pte_fragment_size=2097152 node=render
+case "AR24" 0x200000000000901 256x256 scanout=0 implicit_sync=0
+layout 0 1024
+amdgpu_gem_create size=262144 alignment=262144 domains=0x6 flags=0x86
+amdgpu_gem_metadata flags=0x0 tiling_info=0x8000300000000009
+prime_handle_to_fd flags=0x80002
+case "AR24" 0x200000000000901 256x256 scanout=1 implicit_sync=0
+layout 0 1024
+amdgpu_gem_create size=262144 alignment=262144 domains=0x6 flags=0x86
+amdgpu_gem_metadata flags=0x0 tiling_info=0x8000300000000009
+prime_handle_to_fd flags=0x80002
+case "AR24" 0x200000000000901 1920x1080 scanout=0 implicit_sync=0
+layout 0 7680
+amdgpu_gem_create size=8847360 alignment=2097152 domains=0x6 flags=0x86
+amdgpu_gem_metadata flags=0x0 tiling_info=0x8000300000000009
+prime_handle_to_fd flags=0x80002
+case "AR24" 0x200000000000901 1920x1080 scanout=1 implicit_sync=0
+layout 0 7680
+amdgpu_gem_create size=8847360 alignment=2097152 domains=0x6 flags=0x86
+amdgpu_gem_metadata flags=0x0 tiling_info=0x8000300000000009
+prime_handle_to_fd flags=0x80002
+# gfx1201, GFX12 with and without DCC
+device driver=amdgpu fake=amdgpu:gfx1201:kernel=7.2:pte_fragment_size=2097152 node=render
+case "AR24" 0x200000000000105 256x256 scanout=0 implicit_sync=0
+layout 0 1024
+amdgpu_gem_create size=262144 alignment=262144 domains=0x4 flags=0x86
+amdgpu_gem_metadata flags=0x0 tiling_info=0xa01
+amdgpu_gem_metadata flags=0x0 tiling_info=0xa01
+prime_handle_to_fd flags=0x80002
+case "AR24" 0x200000000000105 256x256 scanout=1 implicit_sync=0
+layout 0 1024
+amdgpu_gem_create size=262144 alignment=262144 domains=0x4 flags=0x86
+amdgpu_gem_metadata flags=0x0 tiling_info=0x8000000000000a01
+amdgpu_gem_metadata flags=0x0 tiling_info=0x8000000000000a01
+amdgpu_gem_metadata flags=0x0 tiling_info=0x8000000000000a01
+prime_handle_to_fd flags=0x80002
+case "AR24" 0x200000000000105 1920x1080 scanout=0 implicit_sync=0
+layout 0 7680
+amdgpu_gem_create size=8294400 alignment=2097152 domains=0x4 flags=0x86
+amdgpu_gem_metadata flags=0x0 tiling_info=0xa01
+amdgpu_gem_metadata flags=0x0 tiling_info=0xa01
+prime_handle_to_fd flags=0x80002
+case "AR24" 0x200000000000105 1920x1080 scanout=1 implicit_sync=0
+layout 0 7680
+amdgpu_gem_create size=8294400 alignment=2097152 domains=0x4 flags=0x86
+amdgpu_gem_metadata flags=0x0 tiling_info=0x8000000000000a01
+amdgpu_gem_metadata flags=0x0 tiling_info=0x8000000000000a01
+amdgpu_gem_metadata flags=0x0 tiling_info=0x8000000000000a01
+prime_handle_to_fd flags=0x80002
+case "AR24" 0x200000000042305 256x256 scanout=0 implicit_sync=0
+layout 0 1024
+amdgpu_gem_create size=262144 alignment=262144 domains=0x4 flags=0x10086
+amdgpu_gem_metadata flags=0x0 tiling_info=0xa0b
+amdgpu_gem_metadata flags=0x0 tiling_info=0xa0b
+prime_handle_to_fd flags=0x80002
+case "AR24" 0x200000000042305 256x256 scanout=1 implicit_sync=0
+layout 0 1024
+amdgpu_gem_create size=262144 alignment=262144 domains=0x4 flags=0x10086
+amdgpu_gem_metadata flags=0x0 tiling_info=0x8000000000000a0b
+amdgpu_gem_metadata flags=0x0 tiling_info=0x8000000000000a0b
+amdgpu_gem_metadata flags=0x0 tiling_info=0x8000000000000a0b
+prime_handle_to_fd flags=0x80002
+case "AR24" 0x200000000042305 1920x1080 scanout=0 implicit_sync=0
+layout 0 7680
+amdgpu_gem_create size=8847360 alignment=2097152 domains=0x4 flags=0x10086
+amdgpu_gem_metadata flags=0x0 tiling_info=0xa0b
+amdgpu_gem_metadata flags=0x0 tiling_info=0xa0b
+prime_handle_to_fd flags=0x80002
+case "AR24" 0x200000000042305 1920x1080 scanout=1 implicit_sync=0
+layout 0 7680
+amdgpu_gem_create size=8847360 alignment=2097152 domains=0x4 flags=0x10086
+amdgpu_gem_metadata flags=0x0 tiling_info=0x8000000000000a0b
+amdgpu_gem_metadata flags=0x0 tiling_info=0x8000000000000a0b
+amdgpu_gem_metadata flags=0x0 tiling_info=0x8000000000000a0b
+prime_handle_to_fd flags=0x80002
